@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+</head>
+<body>
+<input type="text" placeholder="product name" id="product-input">
+<button onclick="addProduct()">Add</button>
+<br>
+<br>
+<br>
+<table border="1px solid" cellspacing="0" id="main"></table>
+
+<script>
+    let products = ["Apple", "Banana", "Orange"];
+
+    function displayProduct() {
+        let str = `<tr>
+                        <th>STT</th>
+                        <th>Product Name</th>
+                   </tr>`;
+        for (let i = 0; i < products.length; i++) {
+            str += `<tr>
+                        <td>${i + 1}</td>
+                        <td>${products[i]}</td>
+                        <td><button onclick="editItem(${i})">Edit</button></td>
+                        <td><button onclick="deleteItem(${i})">Remove</button></td>
+                    </tr>`;
+        }
+        document.getElementById("main").innerHTML = str;
+    }
+
+    function addProduct() {
+        let item = document.getElementById("product-input");
+        if(item.value === "")return;
+        let product = item.value;
+        products.push(product);
+        item.value = "";
+        displayProduct();
+    }
+
+    function deleteItem(index) {
+        products.splice(index,1);
+        displayProduct();
+    }
+
+    function editItem(index) {
+        let value = prompt("Edit item",products[index]);
+        if(value !== null && value !== ""){
+            products[index] = value;
+            displayProduct();
+        }
+    }
+
+    displayProduct();
+</script>
+</body>
+</html>
